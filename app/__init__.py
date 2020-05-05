@@ -31,6 +31,9 @@ def create_app(config_name):
 
     # Regestering the auth bluprint
     from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint,url_prefix = '/auth')
+    try:
+        app.register_blueprint(auth_blueprint,url_prefix = '/auth')
+    except:
+        'error'
 
     return app
