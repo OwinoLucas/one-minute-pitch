@@ -1,19 +1,52 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
-from flask_login import login_required
-from ..models import User
-from .forms import UpdateProfile
+from flask_login import login_required,current_user
+from ..models import User,Pitch
+from .forms import UpdateProfile,PitchForm
 from .. import db,photos
 
 # Views
-@main.route('/')
+
+@main.route('/', methods = ['GET','POST'])
 def index():
 
     '''
     View root page function that returns the index page and its data
     '''
+    
     title = 'Home - Welcome to One minute pitch'
     return render_template('index.html', title = title)
+
+@main.route('/pitches/new/', methods = ['GET','POST'])
+@login_required
+def new_pitch():
+    form = PitchForm()
+    #my_upvotes = Upvote.query.filter_by(pitch_id = Pitch.id)
+    if form.validate_on_submit():
+        description = form.description.data
+        title = form.title.data
+        owner_id = current_user
+        category = form.category.data
+        print(current_user._get_current_object().id)
+        new_pitch = Pitch(owner_id =current_user._get_current_object().id, title = title,description=description,category=category)
+        new_pitch.save_pitch()
+        
+        return redirect(url_for('main.index'))
+    return render_template('pitches.html',form=form)
+
+@main.route('/home', methods = ['GET','POST'])
+def home():
+
+    '''
+    View root page function that returns the index page and its data
+    '''
+    pitch = Pitch.query.filter_by().first()
+    pickuplines = Pitch.query.filter_by(category="pickuplines")
+    interviewpitch = Pitch.query.filter_by(category = "interviewpitch")
+    promotionpitch = Pitch.query.filter_by(category = "promotionpitch")
+    productpitch = Pitch.query.filter_by(category = "productpitch")
+    title = 'Home - Welcome to One minute pitch'
+    return render_template('home.html', title = title, pitch = pitch, pickuplines=pickuplines, interviewpitch= interviewpitch, promotionpitch = promotionpitch, productpitch = productpitch)
 
 @main.route('/user/<uname>')
 def profile(uname):

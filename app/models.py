@@ -10,11 +10,13 @@ def load_user(user_id):
 
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
+
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255),nullable = False)
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     email = db.Column(db.String(255),unique = True)
+    pitch = db.relationship('Pitch', backref='user', lazy='dynamic')
     pass_secure = db.Column(db.String(255))
 
 
@@ -32,3 +34,28 @@ class User(UserMixin,db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
+
+class Pitch(db.Model):
+    """
+    class that contains pitch objects
+    """
+    __tablename__ = 'pitches'
+
+    id = db.Column(db.Integer, primary_key = True)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    title = db.Column(db.String())
+    description = db.Column(db.String())
+    category = db.Column(db.String(255), nullable=False)
+    #comments = db.relationship('Comment',backref='pitch',lazy='dynamic')
+    
+    def save_pitch(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_pitches(cls,id):
+        pitches = Pitch.query.filter_by(pitch_id=id).all()
+        return pitches
+
+    def __repr__(self):
+        return f'Pitch {self.description}'
