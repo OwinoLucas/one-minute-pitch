@@ -9,6 +9,9 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 class User(UserMixin,db.Model):
+    """
+    class that contains user objects
+    """
     __tablename__ = 'users'
 
     id = db.Column(db.Integer,primary_key = True)
@@ -18,6 +21,7 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255),unique = True)
     pitch = db.relationship('Pitch', backref='user', lazy='dynamic')
     pass_secure = db.Column(db.String(255))
+    comment = db.relationship('Comment', backref = 'user', lazy = 'dynamic')
 
 
     @property
@@ -46,7 +50,7 @@ class Pitch(db.Model):
     title = db.Column(db.String())
     description = db.Column(db.String())
     category = db.Column(db.String(255), nullable=False)
-    #comments = db.relationship('Comment',backref='pitch',lazy='dynamic')
+    comments = db.relationship('Comment',backref='pitch',lazy='dynamic')
     
     def save_pitch(self):
         db.session.add(self)
@@ -59,3 +63,18 @@ class Pitch(db.Model):
 
     def __repr__(self):
         return f'Pitch {self.description}'
+
+class Comment(db.Model):
+    """
+    class that contains comments' objects
+    """
+    __tablename__='comments'
+    
+    id = db.Column(db.Integer,primary_key=True)
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
+    description = db.Column(db.Text)
+
+    
+    def __repr__(self):
+        return f"Comment : id: {self.id} comment: {self.description}"

@@ -1,8 +1,8 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from flask_login import login_required,current_user
-from ..models import User,Pitch
-from .forms import UpdateProfile,PitchForm
+from ..models import User,Pitch,Comment
+from .forms import UpdateProfile,PitchForm,CommentForm
 from .. import db,photos
 
 # Views
@@ -17,7 +17,7 @@ def index():
     title = 'Home - Welcome to One minute pitch'
     return render_template('index.html', title = title)
 
-@main.route('/pitches/new/', methods = ['GET','POST'])
+@main.route('/home/pitches', methods = ['GET','POST'])
 @login_required
 def new_pitch():
     form = PitchForm()
@@ -31,8 +31,26 @@ def new_pitch():
         new_pitch = Pitch(owner_id =current_user._get_current_object().id, title = title,description=description,category=category)
         new_pitch.save_pitch()
         
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.home'))
     return render_template('pitches.html',form=form)
+
+@main.route('/home/comments/<int:pitch_id>', methods = ['GET','POST'])
+@login_required
+def new_comment(pitch_id):
+    form = CommentForm()
+    pitch=Pitch.query.get(pitch_id)
+    if form.validate_on_submit():
+        description = form.description.data
+
+        new_comment = Comment(description = description, user_id = current_user._get_current_object().id, pitch_id = pitch_id)
+        db.session.add(new_comment)
+        db.session.commit()
+
+
+        return redirect(url_for('.new_comment', pitch_id = pitch_id))
+
+    all_comments = Comment.query.filter_by(pitch_id = pitch_id).all()
+    return render_template('comments.html', form = form, comment = all_comments, pitch = pitch )
 
 @main.route('/home', methods = ['GET','POST'])
 def home():
