@@ -4,20 +4,21 @@
 {% endblock %}
 {% block content %}
 
-<div class="container-fluid welcome-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 welcome">
-                {% if current_user.is_authenticated%}
-                <a id="start" class="btn btn-danger animated infinite flash" href="{{url_for('main.home')}}">See
-                    all
-                    Pitches</a>
-                {% else %}
-                <a id="start" class="btn btn-danger animated infinite flash" href="{{url_for('auth.login')}}">Sign
-                    In</a>
-                {% endif %}
-            </div>
-        </div>
+<div class="container">
+
+    <div class="jumbtron">
+        <h2>Welcome to Pitch Perfect</h2>
     </div>
+
+    {% if current_user.is_authenticated%}
+    <a id="start" class="btn btn-success animated infinite flash" href="{{url_for('main.home')}}">See
+        all
+        Pitches</a>
+    {% else %}
+    <a id="start" class="btn btn-success animated infinite flash" href="{{url_for('auth.login')}}">Sign
+        In</a>
+    {% endif %}
+
+
 </div>
 {% endblock %}
