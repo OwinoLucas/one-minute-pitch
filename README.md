@@ -2,7 +2,18 @@
 #### By Lucas Otieno Owino
 ## Description
 An application that allows users to use that one minute wisely. The users will submit their one minute pitches and other users will vote on them and leave comments to give their feedback on them.
-## Requirements
+## Installation Requirements
+  Clone this repository and navigate to the folder.
+  Run the following commands to allow functionality of the app:-
+  * sudo add-apt-repository ppa:jonathonf/python-3.6
+  * sudo apt-get update
+  * sudo apt-get install python3.6
+  * sudo apt-get install python3-pip
+  * sudo apt-get install python3.6-venv
+  * python3.6 -m venv virtual
+  * source venv/bin/activate
+  * pip install -r requirements.txt
+## User Story
 * As a user, I would like to see the pitches other people have posted.
 * As a user, I would like to vote on the pitch they liked and give it a downvote or upvote.
 * As a user, I would like to be signed in for me to leave a comment
@@ -25,6 +36,12 @@ An application that allows users to use that one minute wisely. The users will s
 * Your project should be deployed to Heroku.
 * Your project should contain proper commit messages.
 * Project is polished and in portfolio-quality state
+## Technologies Used
+  * Python 3.6.5
+  * HTML5, CSS and Bootstrap
+  * Flask Framework
+  * Postgressql
+  * Heroku
 ## Link to live site
 [https://pitch-perfect99.herokuapp.com/](link)
 ## License
