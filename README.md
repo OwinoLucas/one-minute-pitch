@@ -44,6 +44,31 @@ An application that allows users to use that one minute wisely. The users will s
   * Heroku
 ## BDD
 Given a user inputs there credentials when said user logs in he/she should be able to view pitches from diff categories,add a pitch on the various categories and comment and either upvote or downvote them.
+>Login Inputs
+
+| Inputs |  Description |
+| :---         |          ---: |
+| Username  | Account username, ``eg kyrieIrving``|
+| Password  | Account password, ``eg pass1234``|
+
+>Signup inputs
+
+| Inputs |  Description |
+| :---         |          ---: |
+| Username  | Account username, ``eg kyrieIrving``|
+| Email  | User email, ``eg kyrieIrving@gmail.com``|
+| Password  | Account password, ``eg pass1234``|
+| Confirm Password  | Account password, ``eg pass1234``|
+
+> Pitches inputs
+
+| Inputs | Description  |
+|---|---|
+|  Heading | Pitch description eg; ``promotion pitch``  |
+|  Pitch text| The actual pitch body|
+| Comment| A comment on the pitch|
+
+
 ## Link to live site
 [https://pitch-perfect99.herokuapp.com/](link)
 ## License
