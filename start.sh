@@ -5,3 +5,5 @@ export MAIL_PASSWORD='MambaMentality08'
 
 
 python3.6 manage.py server
+
+ #SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://lucas:youknowthevibes@localhost/pitch'

@@ -42,6 +42,8 @@ An application that allows users to use that one minute wisely. The users will s
   * Flask Framework
   * Postgressql
   * Heroku
+## BDD
+Given a user inputs there credentials when said user logs in he/she should be able to view pitches from diff categories,add a pitch on the various categories and comment and either upvote or downvote them.
 ## Link to live site
 [https://pitch-perfect99.herokuapp.com/](link)
 ## License
