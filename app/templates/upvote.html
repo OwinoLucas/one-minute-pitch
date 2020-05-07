@@ -1,0 +1,11 @@
+{% import 'bootstrap/wtf.html' as wtf %}
+{% extends 'bootstrap/base.html' %}
+
+{% block content %}
+<div class="container">
+    <a href="{{url_for('main.upvote',pitch_id = category.id)}}" class="btn btn-primary btn-sm"><i></i>Upvote
+        <span>{{category.upvotes.count()}}</span></a>
+
+</div>
+
+{% endblock %}
