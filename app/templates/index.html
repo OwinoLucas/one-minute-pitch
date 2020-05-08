@@ -8,17 +8,17 @@
 
     <div class="jumbtron">
         <h2>Welcome to Pitch Perfect</h2>
+
+
+        {% if current_user.is_authenticated%}
+        <a id="start" class="btn btn-success animated infinite flash" href="{{url_for('main.home')}}">See
+            all
+            Pitches</a>
+        {% else %}
+        <a id="start" class="btn btn-success animated infinite flash" href="{{url_for('auth.login')}}">Sign
+            In</a>
+        {% endif %}
+
     </div>
-
-    {% if current_user.is_authenticated%}
-    <a id="start" class="btn btn-success animated infinite flash" href="{{url_for('main.home')}}">See
-        all
-        Pitches</a>
-    {% else %}
-    <a id="start" class="btn btn-success animated infinite flash" href="{{url_for('auth.login')}}">Sign
-        In</a>
-    {% endif %}
-
-
 </div>
 {% endblock %}
